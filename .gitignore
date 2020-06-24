@@ -1,0 +1,13 @@
+# Environment
+env
+.env
+
+# Docker
+docker-compose.yml
+
+# Django
+*.pyc
+__pycache__/
+
+# IDE
+.vscode
