@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'crispy_forms',
     'djangopizza.products',
     'djangopizza.orders',
 ]
@@ -124,6 +125,8 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
+LOGIN_REDIRECT_URL = '/'
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -146,3 +149,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "djangopizza/static"),
 ]
+
+# Django Crispy Forms
+# https://github.com/django-crispy-forms/django-crispy-forms
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
