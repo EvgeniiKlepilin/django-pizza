@@ -8,6 +8,9 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
 
+    def get_total_price(self):
+        return self.quantity * self.product.price
+
     def __str__(self):
         return str(self.quantity) + " of " + self.product.title
 
@@ -18,6 +21,12 @@ class Order(models.Model):
     items = models.ManyToManyField(OrderItem)
     ordered_date = models.DateTimeField(blank=True, null=True)
     start_date = models.DateTimeField(auto_now_add=True)
+
+    def get_total_price(self):
+        total = 0
+        for item in self.items.all():
+            total += item.get_total_price()
+        return total
 
     def __str__(self):
         return self.user.username
