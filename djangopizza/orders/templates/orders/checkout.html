@@ -138,11 +138,11 @@
             </li>            
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (USD)</span>
-              <strong>${{ order.get_total_price }}</strong>
+              <strong>${{ order.get_total_price_with_delivery }}</strong>
             </li>
             <li class="list-group-item d-flex justify-content-between">
               <span>Total (EUR)</span>
-              <strong>€{{ order.get_total_price|to_euro }}</strong>
+              <strong>€{{ order.get_total_price_with_delivery|to_euro }}</strong>
             </li>
           </ul>
           <!-- Cart -->
