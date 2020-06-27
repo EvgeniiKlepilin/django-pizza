@@ -17,6 +17,11 @@ class ProductList(View):
             object_list = object_list.filter(
                 category=category
             )
+        search_term = self.request.GET.get('search_term', '')
+        if search_term:
+            object_list = object_list.filter(
+                title__icontains=search_term
+            )
         paginator = Paginator(object_list, 8)
 
         page_number = self.request.GET.get('page')
