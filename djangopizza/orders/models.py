@@ -26,7 +26,6 @@ class OrderItem(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     is_ordered = models.BooleanField(default=False)
-    # items = models.ManyToManyField(OrderItem)
     ordered_date = models.DateTimeField(blank=True, null=True)
     start_date = models.DateTimeField(auto_now_add=True)
     delivery = models.ForeignKey(
@@ -50,10 +49,7 @@ class Order(models.Model):
         return total
 
     def get_total_price_with_delivery(self):
-        total = 0
-        for item in self.items.all():
-            total += item.get_total_price()
-        return total + self.delivery.cost
+        return self.get_total_price() + self.delivery.cost
 
     def __str__(self):
         return self.user.username

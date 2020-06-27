@@ -11,7 +11,19 @@ from .forms import CheckoutForm
 from djangopizza.products.models import Product
 
 
-class CheckoutView(View):
+class OrderHistoryView(LoginRequiredMixin, View):
+
+    def get(self, *args, **kwargs):
+        orders = Order.objects.filter(
+            user=self.request.user,
+            is_ordered=True
+        )
+        context = {
+            'orders': orders
+        }
+        return render(self.request, 'orders/history.html', context)
+
+class CheckoutView(LoginRequiredMixin, View):
 
     def get(self, *args, **kwargs):
         first_name = self.request.user.first_name

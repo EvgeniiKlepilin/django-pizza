@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+{% load cart_template_tags %}
+
+{% block head_title %}Order History{% endblock %}
+
+{% block content %}
+
+<!--Main layout-->
+<main>
+    <div class="container pt-5">        
+
+        <div class="mt-5">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+        <h2>Order History</h2>
+        {% for order in orders %}
+        <div class="table-responsive text-nowrap mt-3 mb-3">
+            <table class="table">
+                <thead class="default-color">                
+                    <tr>
+                        <th></th>
+                        <th>Date Started</th>
+                        <th>{{ order.start_date|date:"D d M Y" }} {{ order.start_date|time:"H:i" }}</th>
+                        <th>Date Ordered</th>
+                        <th>{{ order.ordered_date|date:"D d M Y" }} {{ order.ordered_date|time:"H:i" }}</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Price</th>
+                </tr>
+                <tbody>
+                {% for order_item in order.items.all %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ order_item.product.title }}</td>
+                        <td>${{ order_item.product.price }}</td>
+                        <td>{{ order_item.quantity }}</td>
+                        <td>${{ order_item.get_total_price }}</td>
+                    </tr>
+                {% endfor %}
+                {% if order.get_total_price %}
+                <tr>
+                    <td colspan="4"><b>Order Total</b></td>
+                    <td><b>${{ order.get_total_price }}</b> (€{{ order.get_total_price|to_euro }})</td>
+                </tr>
+                <tr>
+                    <td colspan="3"><b>With Delivery</b></td>
+                    <td>+ ${{ order.delivery.cost }}</td>
+                    <td><b>${{ order.get_total_price_with_delivery }}</b> (€{{ order.get_total_price_with_delivery|to_euro }})</td>
+                </tr>
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+        {% empty %}
+        <div class="col-lg-12 col-md-12 mb-12 text-center">
+            No orders have been made so far.
+        </div>
+        {% endfor %}
+        <a class="btn btn-primary btn-lg btn-block" href="{% url 'products:product-list' %}">Back to Menu</a>
+    </div>
+</main>
+<!--Main layout-->
+
+{% endblock content %}
+

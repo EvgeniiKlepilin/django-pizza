@@ -20,11 +20,11 @@
 
         <!-- Left -->
         <ul class="navbar-nav mr-auto">
-            {% comment %} <li class="nav-item active">
-                <a class="nav-link waves-effect" href="#">Menu
-                <span class="sr-only">(current)</span>
-                </a>
-            </li>         {% endcomment %}
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link waves-effect" href="{% url 'orders:history' %}">Order History</a>
+            </li>
+            {% endif %}
         </ul>
 
         <!-- Right -->
