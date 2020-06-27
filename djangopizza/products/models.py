@@ -7,18 +7,11 @@ CATEGORY_CHOICES = (
     ('D', 'drink'),
 )
 
-LABEL_CHOICES = (
-    ('P', 'primary'),
-    ('S', 'secondary'),
-    ('D', 'danger'),
-)
-
 class Product(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     description = models.TextField(max_length=500)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2, default="P")
-    label = models.CharField(choices=LABEL_CHOICES, max_length=2, default="P")
     image_url = models.URLField(max_length=500, blank=True, null=True)
 
     def get_add_to_cart_absolute_url(self):

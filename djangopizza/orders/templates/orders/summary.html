@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load cart_template_tags %}
 
 {% block head_title %}Order Summary{% endblock %}
 
@@ -46,9 +47,6 @@
                         </td>
                         <td>
                             ${{ order_item.get_total_price }}
-                            <a href="#">
-                                <i class="fas fa-trash"></i>
-                            </a>
                         </td>
                     </tr>
 
@@ -65,11 +63,11 @@
                 {% if object.get_total_price %}
                 <tr>
                     <td colspan="4"><b>Order Total</b></td>
-                    <td><b>${{ object.get_total_price }}</b></td>
+                    <td><b>${{ object.get_total_price }}</b> (€{{ object.get_total_price|to_euro }})</td>
                 </tr>
                 <tr>
                     <td colspan="5">
-                        <a class="btn btn-warning float-right ml-2" href="#">Proceed to Checkout</a>
+                        <a class="btn btn-warning float-right ml-2" href="{% url 'orders:checkout' %}">Proceed to Checkout</a>
                         <a class="btn btn-primary float-right" href="{% url 'products:product-list' %}">Back to Menu</a>
                     </td>
                 </tr>
