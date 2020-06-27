@@ -3,11 +3,6 @@ from django.core.paginator import Paginator
 from django.views.generic import ListView, View
 from .models import Product
 
-# class ProductList(ListView):
-#     model = Product
-#     paginate_by = 8
-#     template_name = "products/list.html"
-
 class ProductList(View):
 
     def get(self, *args, **kwargs):
