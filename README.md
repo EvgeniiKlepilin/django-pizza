@@ -1,11 +1,11 @@
-# django-pizza
-
-<p align="left">
-    <img src="https://flat.badgen.net/dependabot/thepracticaldev/dev.to?icon=dependabot" alt="Dependabot Badge" />
-    <img src="https://badgen.net/pypi/v/pip" alt="PIP version">
-    <img src="https://badgen.net/github/license/micromatch/micromatch" alt="LICENSE">
+<img  src="https://repository-images.githubusercontent.com/274627580/71399c00-ba12-11ea-843e-86fbf39d5821"  alt="Django Pizza">
+<p  align="left">
+<img  src="https://flat.badgen.net/dependabot/thepracticaldev/dev.to?icon=dependabot"  alt="Dependabot Badge"  />
+<img  src="https://pyheroku-badge.herokuapp.com/?app=djangolicious-pizza&style=flat"  alt="Heroku Badge"  />
+<img  src="https://img.shields.io/github/v/release/EvgeniiKlepilin/django-pizza"  alt="GitHub Release Badge"  />
+<img  src="https://badgen.net/pypi/v/pip"  alt="PIP version">
+<img  src="https://badgen.net/github/license/micromatch/micromatch"  alt="LICENSE">
 </p>
-
 
 Simplified e-commerce Pizza Ordering platform "Django-Pizza".
 
