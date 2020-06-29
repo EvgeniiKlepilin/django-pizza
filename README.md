@@ -73,3 +73,58 @@ Quit the server with CONTROL-C.
 ```
 
 You server should be available at http://127.0.0.1:8000/ .
+
+### Admin Setup
+
+
+
+### Delivery Setup
+
+Checking out requires a setup of at least one default delivery method. To do that, proceed to http://127.0.0.1:8000/admin/ , login with an Admin account, go to *Orders->Delivery*, and create a Delivery object with a *cost* value, while omitting *country* value. This will create a *Generic Delivery* that can be used as a default for all orders.
+
+## Deploying on Heroku
+
+Make sure you have a [Heroku account](https://signup.heroku.com/signup/dc), and a [Postgres installed locally](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup).
+
+Install Heroku CLI tool via `sudo snap install heroku --classic` if you are using Ubuntu 16+. If you are using a different OS, please refer to the according installation procedures on fficial [Getting Started](https://devcenter.heroku.com/articles/getting-started-with-python) page.
+
+Login to your heroku account via command line and create a new Heroku app. You can omit the app name parameter, in which case Heroku will assign a random name to your app.
+
+```bash
+$ heroku login
+heroku: Press any key to open up the browser to login or q to exit: 
+Opening browser to https://cli-auth.heroku.com/auth/cli/browser/6dsvj31-d2d2-45ji-vnkk-sdfbjksviuhsf
+Logging in... done
+Logged in as admin@djangopizza.com
+$ heroku create dj-pizza
+Creating ⬢ dj-pizza... done
+https://dj-pizza.herokuapp.com/ | https://git.heroku.com/dj-pizza.git
+```
+
+Add a Postgres Resource to the project using following command:
+
+```bash
+$ heroku addons:create heroku-postgresql:hobby-dev
+Creating heroku-postgresql:hobby-dev on ⬢ dj-pizza... free
+Database has been created and is available
+ ! This database is empty. If upgrading, you can transfer
+ ! data from another database with pg:copy
+Created postgresql-emeraldmeadows-51234 as DATABASE_URL
+Use heroku addons:docs heroku-postgresql to view documentation
+```
+
+Proceed to open your [Heroku dashboard](https://dashboard.heroku.com/), locating to your newly created app, going into *Settings*, and setting environment variables necessary to run this project. They are located in *Config Vars* section. Refer to `.env.example`.
+
+After that, go ahead and push the master branch to the Heroku server:
+
+```bash
+git push heroku master
+```
+
+Once everything succeeds, make sure to run migrations on the server:
+
+```bash
+heroku run python manage.py migrate
+```
+
+After this step, the app should be all set and ready. Open https://dj-pizza.herokuapp.com/ to view it in the browser.
