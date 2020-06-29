@@ -148,6 +148,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "djangopizza/static"),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Django Crispy Forms
 # https://github.com/django-crispy-forms/django-crispy-forms
 
