@@ -1,0 +1,1 @@
+web: gunicorn djangopizza.wsgi --log-file -

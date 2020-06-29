@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load cart_template_tags %}
+
+{% block head_title %}Checkout{% endblock %}
+
+{% block content %}
+
+  <!--Main layout-->
+  <main class="mt-5 pt-4">
+    <div class="container wow fadeIn">
+
+      <!-- Heading -->
+      <h2 class="my-5 h2 text-center">Checkout form</h2>
+
+      <!--Grid row-->
+      <div class="row">
+
+        <!--Grid column-->
+        <div class="col-md-8 mb-4">
+
+          <!--Card-->
+          <div class="card">
+
+            <!--Card content-->
+            <form method="POST" class="card-body">
+              {% csrf_token %}
+
+              <!--Grid row-->
+              <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--firstName-->
+                  <div class="md-form ">
+                    {{ form.first_name }}
+                    <label for="first_name" class="">First name</label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-6 mb-2">
+
+                  <!--lastName-->
+                  <div class="md-form">
+                    {{ form.last_name }}
+                    <label for="last_name" class="">Last name</label>
+                  </div>
+
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+
+              <!--email-->
+              <div class="md-form mb-5">
+                {{ form.email }}
+                <label for="email" class="">Email (optional)</label>
+              </div>
+
+              <!--address-->
+              <div class="md-form mb-5">
+                {{ form.street_address }}
+                <label for="street_address" class="">Address</label>
+              </div>
+
+              <!--address-2-->
+              <div class="md-form mb-5">
+                {{ form.apartment_address }}
+                <label for="apartment_address" class="">Address 2 (optional)</label>
+              </div>
+
+              <!--Grid row-->
+              <div class="row">
+
+                <!--Grid column-->
+                <div class="col-lg-8 col-md-12 mb-8">
+
+                  <label for="country">Country</label>
+                  {{ form.country }}
+
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                  <label for="zip_code">Zip</label>
+                  <div class="invalid-feedback">
+                    Zip code required.
+                  </div>
+                  {{ form.zip_code }}
+
+                </div>
+                <!--Grid column-->
+
+              </div>
+              <!--Grid row-->
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Place an Order</button>
+
+            </form>
+
+          </div>
+          <!--/.Card-->
+
+        </div>
+        <!--Grid column-->
+
+        <!--Grid column-->
+        <div class="col-md-4 mb-4">
+
+          <!-- Heading -->
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+            <span class="badge badge-secondary badge-pill">{{ request.user|cart_item_count }}</span>
+          </h4>
+
+          <!-- Cart -->
+          <ul class="list-group mb-3 z-depth-1">
+            {% for order_item in order.items.all %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h6 class="my-0">{{ order_item.product.title }} <i class="fas fa-times mr-2 ml-2"></i> {{ order_item.quantity }}</h6>
+                <small class="text-muted">{{ order_item.product.get_category_display|title }}</small>
+              </div>
+              <span class="text-muted">${{ order_item.get_total_price }}</span>
+            </li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Delivery Cost</span>
+              ${{ order.delivery.cost }}
+            </li>            
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (USD)</span>
+              <strong>${{ order.get_total_price_with_delivery }}</strong>
+            </li>
+            <li class="list-group-item d-flex justify-content-between">
+              <span>Total (EUR)</span>
+              <strong>€{{ order.get_total_price_with_delivery|to_euro }}</strong>
+            </li>
+          </ul>
+          <!-- Cart -->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+  <!--Main layout-->
+
+{% endblock content %}
