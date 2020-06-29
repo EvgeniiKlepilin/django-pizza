@@ -76,7 +76,16 @@ You server should be available at http://127.0.0.1:8000/ .
 
 ### Admin Setup
 
+To access Administration site part, you have to create at least one super user:
 
+```bash
+$ python manage.py createsuperuser
+Username: superuser
+Email address: superuser@djangopizza.com
+Password: 
+Password (again): 
+Superuser created successfully.
+```
 
 ### Delivery Setup
 
